@@ -3,16 +3,16 @@
 class Point{
 	constructor(){
 		this.value = 0;
-		this.timeLine = new Array();
+		this.timeline = new Array();
 	}
 	addTimeline(value){
-		this.timeLine.push(value);
+		this.timeline.push(value);
 	}
 	get(ratio){
-		var n = ratio * (this.timeLine.length-1);
-		var index = Math.floor(Math.min( this.timeLine.length - 1.001, Math.floor(n) ) );
+		var n = ratio * (this.timeline.length-1);
+		var index = Math.floor(Math.min( this.timeline.length - 1.001, Math.floor(n) ) );
 		var progress = n - index;
-		this.value = this.timeLine[index] + (this.timeLine[index+1] - this.timeLine[index]) * progress;	
+		this.value = this.timeline[index] + (this.timeline[index+1] - this.timeline[index]) * progress;	
 		return this.value;
 	}
 }

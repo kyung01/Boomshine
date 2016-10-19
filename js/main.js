@@ -18,8 +18,8 @@ var app = app || {};
 app.main = {
 	//  properties
 
-    WIDTH : 640, 
-    HEIGHT: 480,
+    WIDTH : 512, 
+    HEIGHT: 512,
     canvas: undefined,
     ctx: undefined,
    	PAUSED: false,
@@ -31,8 +31,9 @@ app.main = {
     xSpeed:200,
     ySpeed:160,
     fillStyle:"red",
+	state: 0, 
     balls : new Array(),
-    scene_title : new BoomshineTitle(640),
+    scene_title : new BoomshineTitle(512),
 
     STATIC : Object.freeze({
     	CIRCLE_NUM_START :100
@@ -87,7 +88,6 @@ app.main = {
 	 		return;
 	 	}
 	 	var dt = this.calculateDeltaTime();
-        this.scene_title.update(dt.toFixed(3), this.x/(this.WIDTH*.5));
 	 	 
 		this.ctx.fillStyle = "black"; 
 		this.ctx.fillRect(0,0,this.WIDTH,this.HEIGHT); 
@@ -95,6 +95,13 @@ app.main = {
         
 		if (this.debug){
 			this.fillText("dt: " + dt.toFixed(3), this.WIDTH - 150, this.HEIGHT - 10, "18pt courier", "white");
+		}
+		if(this.state== 0){
+			var x = this.x - this.WIDTH/2;
+			var y = this.y - this.HEIGHT/2;
+			var p = Math.sqrt(x*x+ y*y);
+			var ratio = -1 +(1- p /(this.WIDTH*.5)  )* 2.0	;
+        	this.scene_title.update(dt.toFixed(3), ratio );
 		}
 		
 	},
